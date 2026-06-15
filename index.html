@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>[school name here] Notice Board</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__inner">
+        <img src="" alt="a badge here 👈🏼" />
+        <h1>school name</h1>
+        <p id="design">Digital Communication System.</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Access and controls temporarily moved to bottom; Principal's Message will be placed above the board -->
+
+      <section class="panel panel--board">
+        <h2>Notice Board</h2>
+        <p class="board-note">
+          Parents and school staff can share announcements using the Share
+          button on each notice.
+        </p>
+        <div id="noticeList" class="notice-list"></div>
+        <p id="emptyMessage" class="empty-message">
+          No notices yet. Add the first announcement above.
+        </p>
+      </section>
+
+      <!-- Reinsert Access and Controls at the bottom of the main content -->
+      <section class="panel panel--controls">
+        <div class="search-bar">
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Search notices..."
+          />
+        </div>
+        <div class="summary">
+          <span id="noticeCount">0 notices</span>
+        </div>
+      </section>
+      
+      <!-- Post a New Notice form moved to bottom with School Access -->
+      <!-- Principal's Message moved above the Notice Board -->
+      <section class="panel panel--principal">
+        <div class="principal-container">
+          <img
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+            alt="School Principal"
+            class="principal-image"
+          />
+          <div class="principal-content">
+            <h2>Principal's Message</h2>
+            <p>
+              Welcome to [school name here] digital notice board. Our school is
+              committed to supporting academic excellence, character
+              development, and a safe learning community for every learner.
+            </p>
+            <p class="quote">
+              "Every child is capable of great things when given a caring and
+              inspiring environment."
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel panel--events">
+        <h2>Upcoming Events</h2>
+        <ul class="events-list">
+          <li><strong>Sports Day</strong> — June 28, 2026</li>
+          <li><strong>PTA Meetings</strong> — July 5, 2026</li>
+          <li><strong>Exams</strong> — July 15–19, 2026</li>
+          <li><strong>Visiting Day</strong> — August 1, 2026</li>
+        </ul>
+      </section>
+
+      <section class="panel panel--timetable">
+        <h2>Examination Time Table</h2>
+        <p class="timetable-note">
+          Please review your exam schedule carefully and arrive at least 20
+          minutes before each session.
+        </p>
+        <div class="timetable-wrapper">
+          <table class="timetable-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Grade</th>
+                <th>Subject</th>
+                <th>Session</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>July 15, 2026</td>
+                <td>Grade 7</td>
+                <td>Mathematics</td>
+                <td>9:00 AM – 11:00 AM</td>
+              </tr>
+              <tr>
+                <td>July 16, 2026</td>
+                <td>Grade 8</td>
+                <td>English</td>
+                <td>9:00 AM – 11:00 AM</td>
+              </tr>
+              <tr>
+                <td>July 17, 2026</td>
+                <td>Grade 9</td>
+                <td>Science</td>
+                <td>9:00 AM – 11:00 AM</td>
+              </tr>
+              <tr>
+                <td>July 18, 2026</td>
+                <td>Grade 10</td>
+                <td>Social Studies</td>
+                <td>9:00 AM – 11:00 AM</td>
+              </tr>
+              <tr>
+                <td>July 19, 2026</td>
+                <td>Grade 11</td>
+                <td>General Paper</td>
+                <td>9:00 AM – 11:00 AM</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel panel--downloads">
+        <h2>Downloads</h2>
+        <div class="download-grid">
+          <a href="timetable.pdf" download class="download-card">
+            <span class="download-title">PDF Timetable</span>
+            <span class="download-note">Weekly timetable for all grades.</span>
+          </a>
+          <a href="admission-form.pdf" download class="download-card">
+            <span class="download-title">Admission Forms</span>
+            <span class="download-note"
+              >Download and print admission paperwork.</span
+            >
+          </a>
+          <a href="student-handbook.pdf" download class="download-card">
+            <span class="download-title">Student Handbook</span>
+            <span class="download-note"
+              >Rules, policies, and student resources.</span
+            >
+          </a>
+          <a href="school-calendar.pdf" download class="download-card">
+            <span class="download-title">School Calendar</span>
+            <span class="download-note">Academic year dates and holidays.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="panel panel--admission">
+        <h2>Admission Information</h2>
+        <div class="admission-grid">
+          <div class="admission-card">
+            <h3>Admission Requirements</h3>
+            <ul class="admission-list">
+              <li>Completed admission form with guardian signature.</li>
+              <li>Birth certificate or proof of age.</li>
+              <li>Latest school report or transfer certificate.</li>
+              <li>Two passport photos and a medical clearance note.</li>
+            </ul>
+          </div>
+          <div class="admission-card">
+            <h3>Fees Information</h3>
+            <p>
+              Fees are payable at the beginning of each term. Please visit the
+              school office for current fee schedules or download the complete
+              fee guide.
+            </p>
+            <ul class="admission-list">
+              <li><strong>Application fee:</strong> $25</li>
+              <li><strong>Registration fee:</strong> $50</li>
+              <li><strong>Term fees:</strong> Varies by grade.</li>
+              <li><strong>Uniform & supplies:</strong> Charged separately.</li>
+            </ul>
+          </div>
+          <div class="admission-card">
+            <h3>Application Process</h3>
+            <ol class="admission-list">
+              <li>Download or collect the admission form.</li>
+              <li>Complete the form and attach required documents.</li>
+              <li>Submit the application to the school office.</li>
+              <li>Schedule the placement test and interview.</li>
+              <li>Receive admission confirmation by email or phone.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel panel--gallery">
+        <h2>Photo Gallery</h2>
+        <div class="gallery-grid">
+          <img
+            src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
+            alt="Elementary school students raising hands in class"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80"
+            alt="Children reading books in a school library"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=800&q=80"
+            alt="Teacher helping students with a classroom activity"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80"
+            alt="School campus and students walking together"
+          />
+        </div>
+      </section>
+
+      <section class="panel panel--contact">
+        <h2>Contact School</h2>
+        <div class="contact-container">
+          <img
+            src="school building.jpg"
+            alt="School building entrance"
+            class="school-image"
+          />
+          <div class="contact-content">
+            <p class="school-description">
+              [School Name] is a leading educational institution dedicated to
+              fostering academic excellence and character development. Our
+              state-of-the-art facilities, experienced faculty, and supportive
+              community create an ideal learning environment for every student.
+            </p>
+            <p>
+              Need assistance? Reach our school office by phone or WhatsApp.
+            </p>
+            <div class="contact-actions">
+              <a href="tel:+233 263691985" class="button button--primary"
+                >Call School</a
+              >
+              <a
+                href="https://wa.me/+233 263691985?text=Hello%20Abundant%20Life%20Academy"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button button--secondary"
+                >WhatsApp School</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+
+      <section class="panel panel--access">
+        <h2>School Access</h2>
+        <p>
+          Parents can view the notice board. School staff may unlock the posting
+          form with the secure school code.
+        </p>
+        <form id="accessForm" class="access-form">
+          <label>
+            School access code
+            <input
+              type="password"
+              id="accessInput"
+              placeholder="Enter school code"
+            />
+          </label>
+          <button type="submit" class="button button--secondary">
+            Unlock Form
+          </button>
+        </form>
+        <p id="accessMessage" class="access-message">
+          The notice form is visible to parents, but adding or editing notices
+          is restricted to school staff.
+        </p>
+      </section>
+
+      <section class="panel panel--form">
+        <h2 class="form-heading">Post a New Notice</h2>
+        <form id="noticeForm" class="notice-form">
+          <label>
+            Title
+            <input
+              type="text"
+              id="noticeTitle"
+              placeholder="Enter notice title"
+              required
+            />
+          </label>
+          <label>
+            Details
+            <textarea
+              id="noticeBody"
+              placeholder="Enter notice details"
+              rows="4"
+              required
+            ></textarea>
+          </label>
+          <label>
+            Date
+            <input type="date" id="noticeDate" required />
+          </label>
+          <label>
+            Upload Picture (Optional)
+            <input type="file" id="noticeImage" accept="image/*" />
+          </label>
+          <button type="submit" class="button button--primary">
+            Add Notice
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Designed by
+        <a
+          href="https://bigj11514-droid.github.io/Y_Cohde-Landinf-page-class-exercise-re-edited-/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand"
+          >Y_Cohde</a
+        >
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
