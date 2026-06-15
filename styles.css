@@ -1,11 +1,11 @@
 :root {
-  --bg: #f7f2ff;
+  --bg: #fff8dc;
   --card: #ffffff;
-  --card-border: #e8daff;
-  --text: #221a44;
-  --muted: #625b85;
+  --card-border: #f7e6a2;
+  --text: #2a1d4b;
+  --muted: #6d5d8c;
   --primary: #7c3aed;
-  --accent: #f97316;
+  --accent: #f9e05c;
   --danger: #d64545;
   --shadow: 0 15px 35px rgba(124, 58, 237, 0.16);
 }
@@ -17,12 +17,12 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
-  background: linear-gradient(180deg, #f7f2ff 0%, #fff5ec 100%);
+  background: linear-gradient(180deg, #faf0c7 0%, #fffcef 100%);
   color: var(--text);
 }
 
 .hero {
-  background: linear-gradient(135deg, #7c3aed, #f97316);
+  background: linear-gradient(135deg, #7c3aed, #f9e05c);
   color: white;
   padding: 2.5rem 1.25rem;
   text-align: center;
@@ -124,7 +124,7 @@ a{
 }
 
 .panel--access {
-  background: linear-gradient(180deg, #ffffff, #f6efff);
+  background: linear-gradient(180deg, #fffdf0, #fff6cc);
 }
 
 .panel--access p {
@@ -145,7 +145,7 @@ a{
 
 .button--secondary {
   background: var(--accent);
-  color: white;
+  color: var(--text);
 }
 
 .panel--controls {
