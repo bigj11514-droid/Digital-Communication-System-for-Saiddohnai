@@ -1,13 +1,13 @@
 :root {
-  --bg: #f1f8ff;
+  --bg: #f7f2ff;
   --card: #ffffff;
-  --card-border: #d0e4ff;
-  --text: #102a43;
-  --muted: #556f85;
-  --primary: #0a66c2;
-  --accent: #1d96ff;
+  --card-border: #e8daff;
+  --text: #221a44;
+  --muted: #625b85;
+  --primary: #7c3aed;
+  --accent: #f97316;
   --danger: #d64545;
-  --shadow: 0 15px 35px rgba(16, 42, 67, 0.12);
+  --shadow: 0 15px 35px rgba(124, 58, 237, 0.16);
 }
 
 * {
@@ -17,12 +17,12 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
-  background: linear-gradient(180deg, #e8f2ff 0%, #f9fbff 100%);
+  background: linear-gradient(180deg, #f7f2ff 0%, #fff5ec 100%);
   color: var(--text);
 }
 
 .hero {
-  background: linear-gradient(135deg, #0d47a1, #1976d2);
+  background: linear-gradient(135deg, #7c3aed, #f97316);
   color: white;
   padding: 2.5rem 1.25rem;
   text-align: center;
@@ -120,11 +120,11 @@ a{
 }
 .button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(10, 102, 194, 0.18);
+  box-shadow: 0 12px 24px rgba(124, 58, 237, 0.18);
 }
 
 .panel--access {
-  background: linear-gradient(180deg, #ffffff, #f3f8ff);
+  background: linear-gradient(180deg, #ffffff, #f6efff);
 }
 
 .panel--access p {
@@ -144,7 +144,7 @@ a{
 }
 
 .button--secondary {
-  background: #2157a7;
+  background: var(--accent);
   color: white;
 }
 
@@ -195,7 +195,7 @@ a{
 .panel--principal .quote {
   margin: 0;
   font-style: italic;
-  color: #1d3b72;
+  color: #4d2f8f;
   border-left: 4px solid var(--accent);
   padding-left: 1rem;
 }
@@ -271,15 +271,15 @@ a{
 .timetable-table thead th {
   color: var(--primary);
   font-weight: 700;
-  background: #f5f9ff;
+  background: #f4ebff;
 }
 
 .timetable-table tbody tr:nth-child(odd) {
-  background: #f9fbff;
+  background: #faf2ff;
 }
 
 .timetable-table tbody tr:hover {
-  background: #eef6ff;
+  background: #fff2eb;
 }
 
 .download-grid,
@@ -295,8 +295,8 @@ a{
 .download-card {
   display: block;
   padding: 1.25rem;
-  background: #f8fbff;
-  border: 1px solid #d7e5ff;
+  background: #fcf2ff;
+  border: 1px solid #e8daff;
   border-radius: 18px;
   text-decoration: none;
   color: var(--text);
@@ -418,7 +418,7 @@ img {
 }
 
 .notice-actions button {
-  background: #e4efff;
+  background: #f2e8ff;
   color: var(--primary);
   border: none;
   border-radius: 999px;
@@ -427,8 +427,8 @@ img {
 }
 
 .notice-actions button.share {
-  background: #dcf3ff;
-  color: #0a66c2;
+  background: #fff2e6;
+  color: #c2410c;
 }
 
 .notice-actions button.delete {
@@ -464,8 +464,8 @@ img {
 }
 
 .brand{
-    color: #1d375e;
-    text-shadow: 3px 0px 1px rgb(235, 216, 238);
+    color: var(--primary);
+    text-shadow: 3px 0px 1px rgba(249, 115, 22, 0.24);
     font-size: 150%;
     padding: 10px;
     text-decoration: none;
