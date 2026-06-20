@@ -41,8 +41,17 @@
 
       <section class="panel panel--feed">
         <h2>Live Feed</h2>
-        <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.75rem;">
-          <label style="margin:0;display:flex;gap:0.5rem;align-items:center">
+        <div
+          style="
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-bottom: 0.75rem;
+          "
+        >
+          <label
+            style="margin: 0; display: flex; gap: 0.5rem; align-items: center"
+          >
             <input type="checkbox" id="liveFeedToggle" /> Live updates
           </label>
           <button id="clearFeed" class="button">Clear Feed</button>
@@ -69,6 +78,19 @@
         </div>
         <div class="summary">
           <span id="noticeCount">0 notices</span>
+        </div>
+        <div style="display: flex; gap: 0.75rem; align-items: center">
+          <label
+            style="margin: 0; display: flex; gap: 0.5rem; align-items: center"
+          >
+            Type
+            <select id="filterType">
+              <option value="all">All</option>
+              <option value="urgent">Urgent</option>
+              <option value="event">Event</option>
+              <option value="general">General</option>
+            </select>
+          </label>
         </div>
         <div
           class="notifications-controls"
@@ -112,19 +134,43 @@
         <ul class="events-list">
           <li>
             <strong>Sports Day</strong> — June 28, 2026
-            <button class="button set-reminder" data-title="Sports Day" data-date="2026-06-28">Set Reminder</button>
+            <button
+              class="button set-reminder"
+              data-title="Sports Day"
+              data-date="2026-06-28"
+            >
+              Set Reminder
+            </button>
           </li>
           <li>
             <strong>PTA Meetings</strong> — July 5, 2026
-            <button class="button set-reminder" data-title="PTA Meetings" data-date="2026-07-05">Set Reminder</button>
+            <button
+              class="button set-reminder"
+              data-title="PTA Meetings"
+              data-date="2026-07-05"
+            >
+              Set Reminder
+            </button>
           </li>
           <li>
             <strong>Exams</strong> — July 15–19, 2026
-            <button class="button set-reminder" data-title="Exams" data-date="2026-07-15">Set Reminder</button>
+            <button
+              class="button set-reminder"
+              data-title="Exams"
+              data-date="2026-07-15"
+            >
+              Set Reminder
+            </button>
           </li>
           <li>
             <strong>Visiting Day</strong> — August 1, 2026
-            <button class="button set-reminder" data-title="Visiting Day" data-date="2026-08-01">Set Reminder</button>
+            <button
+              class="button set-reminder"
+              data-title="Visiting Day"
+              data-date="2026-08-01"
+            >
+              Set Reminder
+            </button>
           </li>
         </ul>
       </section>
@@ -347,6 +393,14 @@
               rows="4"
               required
             ></textarea>
+          </label>
+          <label>
+            Type
+            <select id="noticeType">
+              <option value="general">General Announcement</option>
+              <option value="event">Upcoming Event</option>
+              <option value="urgent">Urgent Alert</option>
+            </select>
           </label>
           <label>
             Date

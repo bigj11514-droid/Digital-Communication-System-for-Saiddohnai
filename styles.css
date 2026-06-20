@@ -213,6 +213,30 @@ a{
   font-size: 0.9rem;
 }
 
+.notice-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.notice-badge--urgent { background: #ffe7e7; color: #a00; border: 1px solid #f1c0c0; }
+.notice-badge--event { background: #eef7ff; color: #0b66b3; border: 1px solid #cce6ff; }
+.notice-badge--general { background: #f6fff4; color: #14603a; border: 1px solid #d7f2df; }
+
+#filterType {
+  padding: 0.45rem 0.5rem;
+  border-radius: 10px;
+}
+
+#noticeType {
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+}
+
 .panel--principal p {
   margin: 0 0 1rem;
   color: var(--muted);

@@ -7,6 +7,8 @@ const noticeList = document.getElementById('noticeList');
 const emptyMessage = document.getElementById('emptyMessage');
 const noticeCount = document.getElementById('noticeCount');
 const searchInput = document.getElementById('searchInput');
+const filterType = document.getElementById('filterType');
+const noticeType = document.getElementById('noticeType');
 const accessForm = document.getElementById('accessForm');
 const accessInput = document.getElementById('accessInput');
 const accessMessage = document.getElementById('accessMessage');
@@ -119,8 +121,10 @@ function createNoticeCard(notice) {
   if (notice.image) {
     imageHTML = `<img src="${notice.image}" alt="Notice image" class="notice-image" />`;
   }
+  const type = notice.type || 'general';
+  const badgeLabel = type === 'urgent' ? 'URGENT' : type === 'event' ? 'EVENT' : 'ANNOUNCEMENT';
   card.innerHTML = `
-    <h3>${notice.title}</h3>
+    <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;"><span class="notice-badge notice-badge--${type}">${badgeLabel}</span><h3 style="margin:0">${notice.title}</h3></div>
     ${imageHTML}
     <p>${notice.body}</p>
     <div class="notice-meta">
@@ -144,10 +148,13 @@ function createNoticeCard(notice) {
 
 function renderNotices(filter = '') {
   const normalizedFilter = filter.trim().toLowerCase();
+  const typeFilter = filterType ? filterType.value : 'all';
   const filtered = notices.filter((notice) => {
     const title = notice.title.toLowerCase();
     const body = notice.body.toLowerCase();
-    return title.includes(normalizedFilter) || body.includes(normalizedFilter) || notice.date.includes(normalizedFilter);
+    const matchesText = title.includes(normalizedFilter) || body.includes(normalizedFilter) || notice.date.includes(normalizedFilter);
+    const matchesType = typeFilter === 'all' ? true : (notice.type || 'general') === typeFilter;
+    return matchesText && matchesType;
   });
 
   noticeList.innerHTML = '';
@@ -167,6 +174,7 @@ function addNotice(event) {
   const title = noticeTitle.value.trim();
   const body = noticeBody.value.trim();
   const date = noticeDate.value;
+  const type = noticeType ? noticeType.value : 'general';
   const imageFile = noticeImage.files[0];
 
   if (!title || !body || !date) {
@@ -177,19 +185,19 @@ function addNotice(event) {
     const reader = new FileReader();
     reader.onload = (e) => {
       const imageData = e.target.result;
-      createAndSaveNotice(title, body, date, imageData);
+      createAndSaveNotice(title, body, date, imageData, type);
     };
     reader.readAsDataURL(imageFile);
   } else {
-    createAndSaveNotice(title, body, date, null);
+    createAndSaveNotice(title, body, date, null, type);
   }
 }
 
-function createAndSaveNotice(title, body, date, imageData) {
+function createAndSaveNotice(title, body, date, imageData, type = 'general') {
   if (editingId) {
     notices = notices.map((notice) =>
       notice.id === editingId
-        ? { ...notice, title, body, date, image: imageData || notice.image, updatedAt: new Date().toISOString() }
+        ? { ...notice, title, body, date, image: imageData || notice.image, type: type || notice.type || 'general', updatedAt: new Date().toISOString() }
         : notice,
     );
     editingId = null;
@@ -201,6 +209,7 @@ function createAndSaveNotice(title, body, date, imageData) {
       body,
       date,
       image: imageData,
+      type: type || 'general',
       createdAt: new Date().toISOString(),
       updatedAt: null,
     });
@@ -220,6 +229,7 @@ function startEditing(id) {
   noticeTitle.value = notice.title;
   noticeBody.value = notice.body;
   noticeDate.value = notice.date;
+  if (noticeType) noticeType.value = notice.type || 'general';
   noticeForm.querySelector('.button--primary').textContent = 'Update Notice';
   noticeTitle.focus();
 }
@@ -348,9 +358,9 @@ function onNewNotice(notice) {
 
 // integrate with createAndSaveNotice: call onNewNotice for newly created notice
 const _createAndSaveNotice = createAndSaveNotice;
-createAndSaveNotice = function (title, body, date, imageData) {
+createAndSaveNotice = function (title, body, date, imageData, type) {
   const isEdit = !!editingId;
-  _createAndSaveNotice(title, body, date, imageData);
+  _createAndSaveNotice(title, body, date, imageData, type);
   if (!isEdit) {
     const latest = notices[0];
     onNewNotice(latest);
