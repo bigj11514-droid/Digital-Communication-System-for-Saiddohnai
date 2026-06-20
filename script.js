@@ -296,3 +296,113 @@ if (testNotificationBtn) testNotificationBtn.addEventListener('click', showTestN
 
 // Attempt to register service worker on load
 registerServiceWorker().then(() => updateNotificationButtons());
+
+// Live Feed support
+const liveFeedEl = document.getElementById('liveFeed');
+const liveFeedToggle = document.getElementById('liveFeedToggle');
+const feedEmpty = document.getElementById('feedEmpty');
+const clearFeedBtn = document.getElementById('clearFeed');
+let liveFeedEnabled = false;
+
+function renderFeed() {
+  if (!liveFeedEl) return;
+  liveFeedEl.innerHTML = '';
+  if (!notices || notices.length === 0) {
+    feedEmpty.style.display = 'block';
+    return;
+  }
+  feedEmpty.style.display = 'none';
+  // show most recent first
+  const items = notices.slice(0, 50);
+  items.forEach((notice) => {
+    const item = document.createElement('div');
+    item.className = 'feed-item';
+    item.innerHTML = `<div><strong>${notice.title}</strong></div><div>${notice.body}</div><div class="time">${new Date(notice.createdAt).toLocaleString()}</div>`;
+    liveFeedEl.appendChild(item);
+  });
+}
+
+function pushToFeed(notice) {
+  if (!liveFeedEl) return;
+  feedEmpty.style.display = 'none';
+  const item = document.createElement('div');
+  item.className = 'feed-item';
+  item.innerHTML = `<div><strong>${notice.title}</strong></div><div>${notice.body}</div><div class="time">${new Date(notice.createdAt).toLocaleString()}</div>`;
+  liveFeedEl.prepend(item);
+  // keep length reasonable
+  const children = Array.from(liveFeedEl.children);
+  if (children.length > 100) children.slice(100).forEach((c) => c.remove());
+}
+
+function onNewNotice(notice) {
+  if (liveFeedEnabled) pushToFeed(notice);
+  // optionally send a notification for remote listeners
+  if (Notification.permission === 'granted' && liveFeedEnabled) {
+    if (swRegistration && swRegistration.showNotification) {
+      swRegistration.showNotification(notice.title, { body: notice.body, data: window.location.href });
+    } else {
+      new Notification(notice.title, { body: notice.body, data: window.location.href });
+    }
+  }
+}
+
+// integrate with createAndSaveNotice: call onNewNotice for newly created notice
+const _createAndSaveNotice = createAndSaveNotice;
+createAndSaveNotice = function (title, body, date, imageData) {
+  const isEdit = !!editingId;
+  _createAndSaveNotice(title, body, date, imageData);
+  if (!isEdit) {
+    const latest = notices[0];
+    onNewNotice(latest);
+    // broadcast change for other tabs
+    try {
+      localStorage.setItem(storageKey + ':lastUpdate', JSON.stringify({ id: latest.id, ts: new Date().toISOString() }));
+    } catch (e) {
+      // ignore
+    }
+  }
+};
+
+// Clear feed button
+if (clearFeedBtn) clearFeedBtn.addEventListener('click', () => {
+  if (liveFeedEl) liveFeedEl.innerHTML = '';
+  feedEmpty.style.display = 'block';
+});
+
+if (liveFeedToggle) {
+  liveFeedToggle.addEventListener('change', (e) => {
+    liveFeedEnabled = e.target.checked;
+    if (liveFeedEnabled) renderFeed();
+  });
+}
+
+// Listen for storage events (cross-tab sync)
+window.addEventListener('storage', (e) => {
+  if (!e.key) return;
+  if (e.key === storageKey) {
+    try {
+      loadNotices();
+      renderNotices(searchInput.value);
+      if (liveFeedEnabled) renderFeed();
+    } catch (err) {
+      console.warn('Failed to sync notices from storage event', err);
+    }
+  }
+  if (e.key === storageKey + ':lastUpdate') {
+    try {
+      const meta = JSON.parse(e.newValue);
+      // find the new notice and push to feed
+      loadNotices();
+      const notice = notices.find((n) => n.id === meta.id);
+      if (notice) onNewNotice(notice);
+    } catch (err) {
+      // ignore parse errors
+    }
+  }
+});
+
+// initial render of feed
+renderFeed();
+
+// expose renderFeed for debugging
+window._renderFeed = renderFeed;

@@ -25,3 +25,8 @@ A simple browser-based digital notice board for Abundant Life Academy.
 
 - The site includes a Service Worker and a simple notification UI. Browsers require HTTPS (or localhost) for Service Worker registration and push subscriptions.
 - For real push notifications from a server you will need a push service (VAPID keys) and a backend to send push messages. The current implementation shows local/test notifications from the browser.
+
+## Live Feed
+
+- The Live Feed panel shows recent notices in a scrollable feed. Enable "Live updates" to receive new notices as they are posted.
+- The app uses `localStorage` events to synchronize new notices across tabs/windows on the same origin. No server is required for basic cross-tab updates.

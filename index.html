@@ -39,6 +39,18 @@
         </p>
       </section>
 
+      <section class="panel panel--feed">
+        <h2>Live Feed</h2>
+        <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.75rem;">
+          <label style="margin:0;display:flex;gap:0.5rem;align-items:center">
+            <input type="checkbox" id="liveFeedToggle" /> Live updates
+          </label>
+          <button id="clearFeed" class="button">Clear Feed</button>
+        </div>
+        <div id="liveFeed" class="live-feed"></div>
+        <p class="empty-message" id="feedEmpty">No feed items yet.</p>
+      </section>
+
       <!-- Reinsert Access and Controls at the bottom of the main content -->
       <section class="panel panel--controls">
         <div class="search-bar">
