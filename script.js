@@ -240,3 +240,59 @@ accessForm.addEventListener('submit', handleAccessSubmit);
 loadAuthorization();
 loadNotices();
 renderNotices();
+
+// Notification / Service Worker support
+const enableNotificationsBtn = document.getElementById('enableNotifications');
+const testNotificationBtn = document.getElementById('testNotification');
+let swRegistration = null;
+
+async function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return null;
+  try {
+    swRegistration = await navigator.serviceWorker.register('service-worker.js');
+    console.log('Service Worker registered:', swRegistration);
+    return swRegistration;
+  } catch (err) {
+    console.warn('Service Worker registration failed:', err);
+    return null;
+  }
+}
+
+function updateNotificationButtons() {
+  const granted = Notification.permission === 'granted';
+  if (enableNotificationsBtn) enableNotificationsBtn.textContent = granted ? 'Notifications Enabled' : 'Enable Notifications';
+}
+
+async function requestNotificationPermission() {
+  if (!('Notification' in window)) {
+    alert('Notifications are not supported in this browser.');
+    return;
+  }
+  const permission = await Notification.requestPermission();
+  updateNotificationButtons();
+  if (permission === 'granted' && swRegistration) {
+    try {
+      swRegistration.showNotification('Notifications enabled', { body: 'You will receive school notices here.' });
+    } catch (e) {
+      console.warn('showNotification failed:', e);
+    }
+  }
+}
+
+function showTestNotification() {
+  const title = 'Test Notice';
+  const options = { body: 'This is a test notification from the Saiddohnai Academy board.', data: window.location.href };
+  if (swRegistration && swRegistration.showNotification) {
+    swRegistration.showNotification(title, options);
+  } else if ('Notification' in window && Notification.permission === 'granted') {
+    new Notification(title, options);
+  } else {
+    alert('Please enable notifications first.');
+  }
+}
+
+if (enableNotificationsBtn) enableNotificationsBtn.addEventListener('click', requestNotificationPermission);
+if (testNotificationBtn) testNotificationBtn.addEventListener('click', showTestNotification);
+
+// Attempt to register service worker on load
+registerServiceWorker().then(() => updateNotificationButtons());

@@ -20,3 +20,8 @@ A simple browser-based digital notice board for Abundant Life Academy.
 - `index.html` — main page and structure
 - `styles.css` — visual styling
 - `script.js` — application logic and storage
+
+## Notifications
+
+- The site includes a Service Worker and a simple notification UI. Browsers require HTTPS (or localhost) for Service Worker registration and push subscriptions.
+- For real push notifications from a server you will need a push service (VAPID keys) and a backend to send push messages. The current implementation shows local/test notifications from the browser.
