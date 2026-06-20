@@ -1,3 +1,4 @@
+
 :root {
   --bg: #fff8dc;
   --card: #ffffff;
@@ -184,6 +185,32 @@ a{
 .feed-item .time {
   color: var(--muted);
   font-size: 0.85rem;
+}
+
+.set-reminder {
+  padding: 0.45rem 0.7rem;
+  font-size: 0.85rem;
+}
+
+.reminders-list {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.reminder-item {
+  background: linear-gradient(180deg, #fff, #fffaf0);
+  border: 1px solid #f3e9d6;
+  padding: 0.7rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reminder-item .meta {
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .panel--principal p {

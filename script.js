@@ -406,3 +406,158 @@ renderFeed();
 
 // expose renderFeed for debugging
 window._renderFeed = renderFeed;
+
+// Reminders support
+const remindersKey = 'abundantLifeReminders';
+const remindersListEl = document.getElementById('remindersList');
+const remindersEmptyEl = document.getElementById('remindersEmpty');
+let reminders = [];
+
+function loadReminders() {
+  try {
+    const stored = localStorage.getItem(remindersKey);
+    reminders = stored ? JSON.parse(stored) : [];
+  } catch (e) {
+    reminders = [];
+  }
+}
+
+function saveReminders() {
+  try {
+    localStorage.setItem(remindersKey, JSON.stringify(reminders));
+  } catch (e) {
+    console.warn('Failed to save reminders', e);
+  }
+}
+
+function renderReminders() {
+  if (!remindersListEl) return;
+  remindersListEl.innerHTML = '';
+  if (!reminders || reminders.length === 0) {
+    remindersEmptyEl.style.display = 'block';
+    return;
+  }
+  remindersEmptyEl.style.display = 'none';
+  const sorted = reminders.slice().sort((a, b) => new Date(a.remindAt) - new Date(b.remindAt));
+  sorted.forEach((r) => {
+    const div = document.createElement('div');
+    div.className = 'reminder-item';
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.innerHTML = `<div><strong>${r.title}</strong></div><div>${new Date(r.remindAt).toLocaleString()}</div>`;
+    const actions = document.createElement('div');
+    const cancel = document.createElement('button');
+    cancel.className = 'button';
+    cancel.textContent = 'Cancel';
+    cancel.addEventListener('click', () => {
+      reminders = reminders.filter((x) => x.id !== r.id);
+      saveReminders();
+      renderReminders();
+      try { localStorage.setItem(remindersKey + ':lastUpdate', JSON.stringify({ id: r.id, action: 'removed', ts: new Date().toISOString() })); } catch (e) {}
+    });
+    actions.appendChild(cancel);
+    div.appendChild(meta);
+    div.appendChild(actions);
+    remindersListEl.appendChild(div);
+  });
+}
+
+function addReminderForEvent(title, eventDateISO, minutesBefore) {
+  const eventDate = new Date(eventDateISO);
+  if (Number.isNaN(eventDate.getTime())) {
+    alert('Invalid event date');
+    return;
+  }
+  const remindAt = new Date(eventDate.getTime() - minutesBefore * 60000);
+  const now = new Date();
+  if (remindAt <= now) {
+    alert('Selected reminder time is in the past. Choose a shorter offset.');
+    return;
+  }
+  const reminder = {
+    id: crypto.randomUUID(),
+    title,
+    eventDate: eventDateISO,
+    remindAt: remindAt.toISOString(),
+    createdAt: new Date().toISOString(),
+    sent: false,
+  };
+  reminders.push(reminder);
+  saveReminders();
+  renderReminders();
+  try { localStorage.setItem(remindersKey + ':lastUpdate', JSON.stringify({ id: reminder.id, action: 'added', ts: new Date().toISOString() })); } catch (e) {}
+}
+
+function sendReminderNotification(reminder) {
+  const title = `Reminder: ${reminder.title}`;
+  const body = `Event on ${new Date(reminder.eventDate).toLocaleDateString()}`;
+  if (Notification.permission === 'granted') {
+    if (swRegistration && swRegistration.showNotification) {
+      swRegistration.showNotification(title, { body, data: window.location.href });
+    } else {
+      new Notification(title, { body, data: window.location.href });
+    }
+  }
+  // also push to feed for visibility
+  const feedItem = { title: `Reminder: ${reminder.title}`, body, createdAt: new Date().toISOString() };
+  pushToFeed(feedItem);
+}
+
+function checkReminders() {
+  loadReminders();
+  const now = new Date();
+  let changed = false;
+  reminders.forEach((r) => {
+    if (!r.sent && new Date(r.remindAt) <= now) {
+      r.sent = true;
+      sendReminderNotification(r);
+      changed = true;
+    }
+  });
+  if (changed) saveReminders();
+  renderReminders();
+}
+
+// wire set-reminder buttons
+function initSetReminderButtons() {
+  document.querySelectorAll('.set-reminder').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const title = btn.dataset.title || btn.getAttribute('data-title');
+      const date = btn.dataset.date || btn.getAttribute('data-date');
+      const input = prompt('Enter minutes before event for reminder (e.g. 1440 for 1 day, 60 for 1 hour, 15 for 15 minutes):', '60');
+      if (!input) return;
+      const minutes = parseInt(input, 10);
+      if (Number.isNaN(minutes) || minutes <= 0) {
+        alert('Invalid minutes value');
+        return;
+      }
+      addReminderForEvent(title, date, minutes);
+    });
+  });
+}
+
+// storage sync for reminders
+window.addEventListener('storage', (e) => {
+  if (!e.key) return;
+  if (e.key === remindersKey) {
+    loadReminders();
+    renderReminders();
+  }
+  if (e.key === remindersKey + ':lastUpdate') {
+    // reload and render; checkReminders will handle due items
+    loadReminders();
+    renderReminders();
+  }
+});
+
+// initialize reminders on load
+loadReminders();
+renderReminders();
+initSetReminderButtons();
+// check reminders every 30 seconds
+setInterval(checkReminders, 30 * 1000);
+// initial check
+checkReminders();
+
+// mark reminders task completed in todo
+try { localStorage.setItem('abundantLife:todos', JSON.stringify({ reminders: true })); } catch (e) {}

@@ -30,3 +30,9 @@ A simple browser-based digital notice board for Abundant Life Academy.
 
 - The Live Feed panel shows recent notices in a scrollable feed. Enable "Live updates" to receive new notices as they are posted.
 - The app uses `localStorage` events to synchronize new notices across tabs/windows on the same origin. No server is required for basic cross-tab updates.
+
+## Reminders
+
+- You can set reminders for upcoming events from the Events panel. Click "Set Reminder" and enter the number of minutes before the event to be notified.
+- Reminders are stored in `localStorage` and will trigger a notification and a feed entry when due, as long as the site is open in a tab. They will also synchronize across open tabs.
+- Limitations: reminders rely on the page being open (or an active service worker with server push). They won't fire if the browser is fully closed; for persistent server-driven reminders, a backend push service is required.
