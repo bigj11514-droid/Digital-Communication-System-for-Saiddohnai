@@ -550,7 +550,7 @@ img {
     grid-template-columns: 1.25fr 0.75fr;
   }
   body{
-    width: 190%;
+    width: 100%;
   }
   .container{
     display: flex;
