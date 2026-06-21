@@ -560,6 +560,14 @@ img {
     display: flex;
     flex-direction: column;
   }
+  .download-grid{
+    display: flex;
+    flex-direction: column;
+  }
+  .gallery-grid{
+    display: flex;
+    flex-direction: column;
+  }
   .panel--board {
     grid-column: 1 / -1;
   }
