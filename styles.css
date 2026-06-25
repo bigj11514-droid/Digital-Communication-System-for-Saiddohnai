@@ -18,12 +18,12 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
-  background: linear-gradient(180deg, #faf0c7 0%, #fffcef 100%);
+  background: linear-gradient(180deg, #eeecf1 10%, #fffcef 95%);
   color: var(--text);
 }
 
 .hero {
-  background: linear-gradient(135deg, #7c3aed, #f9e05c);
+  background: linear-gradient(180deg, #47208a 30%, #7c3aed 75%);
   color: white;
   padding: 2.5rem 1.25rem;
   text-align: center;
@@ -32,8 +32,16 @@ body {
 .hero__inner {
   max-width: 960px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
 }
-
+h1{
+  text-align: left;
+  padding-left: 10px;
+}
+img{
+  margin: 10px;
+}
 .hero h1 {
   margin: 0;
   font-size: clamp(2rem, 3vw, 3.5rem);
@@ -94,7 +102,18 @@ body {
 .notice-form textarea {
   resize: vertical;
 }
+.access-input{
+  border: 1px solid;
 
+  padding: 10px;
+  width: 40%;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+.school-code{
+  display: flex;
+  align-items: center;
+}
 .button {
   display: inline-flex;
   align-items: center;
@@ -105,6 +124,16 @@ body {
   cursor: pointer;
   font-weight: 700;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.set-reminder{
+  margin-left: 40px;
+}
+.set-button{
+  margin-left: 40px;
+  border: 2px solid rgb(164, 106, 212);
+  border-top: transparent;
+  border-bottom: transparent;
+  background-color: #f2f2f3;
 }
 #design{
   font-size: 150%;
@@ -147,6 +176,7 @@ a{
 .button--secondary {
   background: var(--accent);
   color: var(--text);
+  width: 100%;
 }
 
 .panel--controls {
@@ -190,6 +220,10 @@ a{
 .set-reminder {
   padding: 0.45rem 0.7rem;
   font-size: 0.85rem;
+  background-color: #f2f2f3;
+  border: 1px solid rgb(164, 106, 212);
+    border-top: transparent;
+    border-bottom: transparent;
 }
 
 .reminders-list {
@@ -536,13 +570,18 @@ img {
 }
 
 .brand{
-    color: var(--primary);
-    text-shadow: 3px 0px 1px rgba(249, 115, 22, 0.24);
-    font-size: 150%;
-    padding: 10px;
-    text-decoration: none;
-    letter-spacing: 1px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: var(--primary);
+  text-shadow: 3px 0px 1px rgba(249, 115, 22, 0.24);
+  font-size: 150%;
+  padding: 10px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.button--primary{
+  width: 100%;
+  border: 1px solid rgb(255, 255, 255);
 }
 
 @media (max-width: 900px) {
@@ -577,5 +616,42 @@ img {
   }
   .panel--board {
     grid-column: 1 / -1;
+  }
+  .hero__inner {
+    max-width: 960px;
+    display: flex;
+    font-size: 60%;
+    align-items: center;
+  }
+  img{
+    margin: none;
+  }
+  h1{
+    margin-top: 10px;
+  }
+  .hero{
+    padding: 40px 20px;
+    padding-left: 0px;
+  }
+  #design{
+    margin-top: 0px;
+  }
+  .school-code{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+  .access-input{
+    margin-left: 0px;
+    width: 100%;
+  }
+  .search{
+    align-self: start;
+    margin-bottom: 0px;
+  }
+  .set-reminder{
+    margin-left: 0px;
+    margin-top: 10px;
+    
   }
 }
